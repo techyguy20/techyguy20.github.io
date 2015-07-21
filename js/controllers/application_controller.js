@@ -3,8 +3,9 @@ define([
   'underscore',
   'regions/application_region',
   'layouts/application_layout',
-  'views/navigation/navigation_view'
-], function (_, ApplicationRegion, ApplicationLayout, NavigationView) {
+  'views/navigation/navigation_view',
+  'controllers/validation_type_one_controller'
+], function (_, ApplicationRegion, ApplicationLayout, NavigationView, ValidationTypeOneConroller) {
   'use strict';
 
   var applicationController = Marionette.Controller.extend({
@@ -15,27 +16,27 @@ define([
     },
 
     homeRoute: function() {
-      console.log('home');
+      this.layout.content.empty();
       this.navigationView.showActiveView('home');
     },
 
     validation1: function() {
-      console.log('validation1')
       this.navigationView.showActiveView('validation1');
+      this._initializeValidationOneView();
     },
 
     validation2: function() {
-      console.log('validation1')
+      this.layout.content.empty();
       this.navigationView.showActiveView('validation2');
     },
 
     validation3: function() {
-      console.log('validation1')
+      this.layout.content.empty();
       this.navigationView.showActiveView('validation3');
     },
 
     validation4: function() {
-      console.log('validation1')
+      this.layout.content.empty();
       this.navigationView.showActiveView('validation4');
     },
 
@@ -49,6 +50,10 @@ define([
       this.navigationView = new NavigationView();
       this.layout.navigationView.show(this.navigationView);
     },
+
+    _initializeValidationOneView: function() {
+      this.validationTypeOneConroller = new ValidationTypeOneConroller({mainRegion: this.layout.content});
+    }
   });
 
   return applicationController;
